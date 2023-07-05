@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Team berdasarkan negara
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-searchbar #searchBar (ionChange)="filterTeams(searchBar.value || '')"></ion-searchbar>
+    <ion-list>
+      <ion-item>
+        <ion-select placeholder="Pilih Negara" [(ngModel)]="selectedCountry" (ionChange)="onSearchTeamByCountry()">
+          <ion-select-option *ngFor="let country of countries" [value]="country.name_en">{{ country.name_en
+            }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let team of filteredTeams" size="4">
+        <ion-card>
+          <ion-card-content class=" ion-text-center" (click)="openDetailTeam(team.idTeam)">
+            <ion-img [src]="team.strTeamBadge" alt="Team Logo"></ion-img>
+            <ion-label>{{ team.strTeam }}</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

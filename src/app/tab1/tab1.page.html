@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Tim Sepak Bola
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-list>
+      <ion-item>
+        <ion-select placeholder="Pilih liga" [(ngModel)]="selectedOption" (ionChange)="getTeamsByLeague()">
+          <ion-select-option *ngFor="let league of leagues" [value]="league.strLeague">{{ league.strLeague
+            }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-list lines="full" class="team-card">
+    <ion-card *ngFor="let team of teams" (click)="openDetail(team.idTeam)">
+      <ion-card-content class="ion-padding-vertical" class="ion-padding-horizontal">
+        <div style="display: flex; align-items: center;">
+          <img src="{{ team.strTeamBadge }}" width="30px" class="ion-margin-end">
+          {{ team.strTeam }}
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <div *ngIf="teams.length === 0" class="ion-text-center ion-justify-content-center ion-align-items-center"
+    style="height: 100%; display: flex;">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+</ion-content>
