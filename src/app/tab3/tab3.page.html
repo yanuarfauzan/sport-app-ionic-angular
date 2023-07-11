@@ -1,33 +1,53 @@
+<style>
+  #deskripsi {
+    margin: 0;
+    line-height: 1.5;
+    text-align: justify;
+    white-space: pre-line;
+  }
+</style>
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Team berdasarkan negara
-    </ion-title>
+    <ion-title>Player Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div>
-    <ion-searchbar #searchBar (ionChange)="filterTeams(searchBar.value || '')"></ion-searchbar>
-    <ion-list>
-      <ion-item>
-        <ion-select placeholder="Pilih Negara" [(ngModel)]="selectedCountry" (ionChange)="onSearchTeamByCountry()">
-          <ion-select-option *ngFor="let country of countries" [value]="country.name_en">{{ country.name_en
-            }}</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
+  <ion-searchbar (ionInput)="fetchDataPlayerByName($strPlayer)" placeholder="Cari..." animated></ion-searchbar>
+  <ion-card>
+    <ion-card-header>
+      <ion-list *ngFor="let player of players">
+        <ion-card-title class="ion-text-center">{{ player.strPlayer }}</ion-card-title>
+      </ion-list>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list *ngFor="let player of players">
+        <div class="ion-text-center">
+          <img [src]="player.strThumb" alt="" width="150px">
+        </div>
+        <ion-item>
+          <ion-label>Posisi</ion-label>
+          <ion-note slot="end">{{ player.strPosition }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tinggi Badan</ion-label>
+          <ion-note slot="end">{{ player.strHeight }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Berat Badan</ion-label>
+          <ion-note slot="end">{{ player.strWeight }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Deskripsi</ion-label>
+          <ion-note slot="end" id="deskripsi">{{ player.strDescriptionEN }}</ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="!players" class="ion-text-center ion-justify-content-center ion-align-items-center"
+    style="height: 100%; display: flex;">
+    <ion-spinner name="crescent"></ion-spinner>
   </div>
-  <ion-grid>
-    <ion-row>
-      <ion-col *ngFor="let team of filteredTeams" size="4">
-        <ion-card>
-          <ion-card-content class=" ion-text-center" (click)="openDetailTeam(team.idTeam)">
-            <ion-img [src]="team.strTeamBadge" alt="Team Logo"></ion-img>
-            <ion-label>{{ team.strTeam }}</ion-label>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 </ion-content>

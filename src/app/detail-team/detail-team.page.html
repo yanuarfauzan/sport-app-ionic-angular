@@ -27,7 +27,26 @@
       <p>{{ team.intFormedYear }}</p>
       <p>{{ team.strCountry }}</p>
     </div>
-
+    <div class="ion-text-center">
+      <img src="{{ team.strTeamBanner }}" alt="">
+    </div>
+    <div style="display: flex; align-items: center; justify-content: center;" class="ion-margin-top">
+      <a href="{{ team.strFacebook }}" target="_blank">
+        <ion-icon name="logo-facebook" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+      </a>
+      <a href="{{ team.strInstagram }}" target="_blank">
+        <ion-icon name="logo-instagram" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+      </a>
+      <a href="{{ team.strTwitter }}" target="_blank">
+        <ion-icon name="logo-twitter" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+      </a>
+      <a href="{{ team.strYoutube }}" target="_blank">
+        <ion-icon name="logo-youtube" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+      </a>
+      <a href="{{ team.strWebsite }}" target="_blank">
+        <ion-icon name="globe-outline" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+      </a>
+    </div>
     <ion-card-header>
       <ion-card-title>{{ team.strTeam }} ( {{ team.strAlternate }} )</ion-card-title>
     </ion-card-header>

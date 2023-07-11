@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'detail-team',
     loadChildren: () => import('./detail-team/detail-team.module').then(m => m.DetailTeamPageModule)
   },
-  { path: 'detail/:id/:league', component: DetailTeamPage },
+  { path: 'detail/:id', component: DetailTeamPage },
   {
     path: 'detail-team-by-country',
     loadChildren: () => import('./detail-team-by-country/detail-team-by-country.module').then(m => m.DetailTeamByCountryPageModule)

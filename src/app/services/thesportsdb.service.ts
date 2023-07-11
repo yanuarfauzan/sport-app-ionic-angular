@@ -12,18 +12,13 @@ export class TheSportsDBService {
 
   constructor(private http: HttpClient) { }
 
+  getLeagues() {
+    const url = `${this.baseUrl}${this.apiKey}/all_leagues.php`;
+    return this.http.get(url);
+  }
+
   getTeams() {
     const url = `${this.baseUrl}${this.apiKey}/search_all_teams.php?l=English%20Premier%20League`;
-    return this.http.get(url);
-  }
-
-  getTeamsByCountry(strCountry: string) {
-    const url = `${this.baseUrl}${this.apiKey}/search_all_teams.php?s=Soccer&c=${strCountry}`;
-    return this.http.get(url);
-  }
-
-  getCountry() {
-    const url = `${this.baseUrl}${this.apiKey}/all_countries.php`;
     return this.http.get(url);
   }
 
@@ -32,21 +27,23 @@ export class TheSportsDBService {
     return this.http.get(url);
   }
 
+  getTeamsByCountry(strCountry: string) {
+    const url = `${this.baseUrl}${this.apiKey}/search_all_teams.php?s=Soccer&c=${strCountry}`;
+    return this.http.get(url);
+  }
+
+  getPlayerByName(strPlayer: string) {
+    const url = `${this.baseUrl}${this.apiKey}/searchplayers.php?p=${strPlayer}`;
+    return this.http.get(url);
+  }
+
+
 
   getEvents() {
     const url = `${this.baseUrl}${this.apiKey}/eventsseason.php?id=4328&s=2023-2024`;
     return this.http.get(url);
   }
 
-  getLeagues() {
-    const url = `${this.baseUrl}${this.apiKey}/all_leagues.php`;
-    return this.http.get(url);
-  }
-
-  getPlayerByTeam(strTeam: string) {
-    const url = `${this.baseUrl}${this.apiKey}/searchplayers.php?t=${encodeURIComponent(strTeam)}`;
-    return this.http.get(url);
-  }
 
   getEventsByYear(strYear: number) {
     const url = `${this.baseUrl}${this.apiKey}/eventsseason.php?id=4328&s=${strYear}`;

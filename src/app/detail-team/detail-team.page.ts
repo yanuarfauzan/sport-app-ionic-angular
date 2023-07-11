@@ -17,7 +17,12 @@ interface Team {
   strAlternate: string;
   strTeamBadge: string;
   strCountry: string;
-
+  strTeamBanner: string;
+  strFacebook: string;
+  strInstagram: string;
+  strTwitter: string;
+  strYoutube: string;
+  strWebsite: string;
   // Tambahkan properti lain sesuai kebutuhan
 }
 
@@ -27,48 +32,44 @@ interface Team {
   styleUrls: ['./detail-team.page.scss'],
 })
 export class DetailTeamPage implements OnInit {
-
-  teams: Team[] = [];
   team: Team | null = null;
 
-  league: string = '';
-
-
   private apiKey: string = environment.apiKey;
-  private baseUrl: string = 'https://www.thesportsdb.com/api/v1/json/';
+  private baseUrl: string = 'https://www.thesportsdb.com/api/v1/json/3/';
 
-  constructor(private route: ActivatedRoute, private navCtrl: NavController, private http: HttpClient) { }
+  constructor(
+    private route: ActivatedRoute,
+    private navCtrl: NavController,
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
-    const league = this.route.snapshot.paramMap.get('league');
-    this.league = league !== null ? league : '';
-    this.route.paramMap.pipe(
-      switchMap(params => {
-        const idTeam = params.get('id');
-        if (idTeam === null) {
-          return new Observable<Team | null>(subscriber => {
-            subscriber.next(null);
-            subscriber.complete();
-          });
-        }
-        return this.getTeams().pipe(
-          map(teams => this.filterTeamById(teams, idTeam))
-        );
-      })
-    ).subscribe(team => {
-      this.team = team;
-    });
+    this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          const idTeam = params.get('id');
+          if (idTeam === null) {
+            return new Observable<Team | null>((subscriber) => {
+              subscriber.next(null);
+              subscriber.complete();
+            });
+          }
+          return this.getTeamById(idTeam);
+        })
+      )
+      .subscribe((team) => {
+        this.team = team;
+      });
   }
 
-  getTeams(): Observable<Team[]> {
-    const url = `${this.baseUrl}${this.apiKey}/search_all_teams.php?l=${this.league}`;
+  getTeamById(id: string): Observable<Team | null> {
+    const url = `${this.baseUrl}search_all_teams.php?l=English%20Premier%20League`;
     return this.http.get<{ teams: Team[] }>(url).pipe(
-      map(response => response.teams)
+      map((response) => {
+        const teams = response.teams;
+        return teams.find((team) => team.idTeam === id) || null;
+      })
     );
-  }
-
-  filterTeamById(teams: Team[], teamId: string): Team | null {
-    return teams.find(team => team.idTeam === teamId) || null;
   }
 
   goBack() {
