@@ -1,53 +1,43 @@
-<style>
-  #deskripsi {
-    margin: 0;
-    line-height: 1.5;
-    text-align: justify;
-    white-space: pre-line;
-  }
-</style>
-
 <ion-header>
   <ion-toolbar>
-    <ion-title>Player Details</ion-title>
+    <ion-title>
+      Pertandingan
+    </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-searchbar (ionInput)="fetchDataPlayerByName($strPlayer)" placeholder="Cari..." animated></ion-searchbar>
-  <ion-card>
-    <ion-card-header>
-      <ion-list *ngFor="let player of players">
-        <ion-card-title class="ion-text-center">{{ player.strPlayer }}</ion-card-title>
-      </ion-list>
-    </ion-card-header>
+
+  <ion-searchbar #searchBar (ionChange)="fetchDataPlayerByName(searchBar.value || '')"></ion-searchbar>
+
+  <ion-card *ngFor="let player of players">
+    <ion-card-title class="ion-text-center ion-margin-top">{{ player.strPlayer }}</ion-card-title>
     <ion-card-content>
-      <ion-list *ngFor="let player of players">
-        <div class="ion-text-center">
-          <img [src]="player.strThumb" alt="" width="150px">
-        </div>
-        <ion-item>
-          <ion-label>Posisi</ion-label>
-          <ion-note slot="end">{{ player.strPosition }}</ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>Tinggi Badan</ion-label>
-          <ion-note slot="end">{{ player.strHeight }}</ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>Berat Badan</ion-label>
-          <ion-note slot="end">{{ player.strWeight }}</ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>Deskripsi</ion-label>
-          <ion-note slot="end" id="deskripsi">{{ player.strDescriptionEN }}</ion-note>
-        </ion-item>
-      </ion-list>
+      <div class="ion-text-center">
+        <img [src]="player.strThumb.length > 0 ? player.strThumb : 'https://via.placeholder.com/300x200'" alt=""
+          width="150px">
+      </div>
+      <ion-item>
+        <ion-label>Posisi</ion-label>
+        <ion-note slot="end">{{ player.strPosition }}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label>Tinggi Badan</ion-label>
+        <ion-note slot="end">{{ player.strHeight }}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label>Berat Badan</ion-label>
+        <ion-note slot="end">{{ player.strWeight }}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label>Deskripsi</ion-label>
+        <ion-note slot="end" id="deskripsi">{{ player.strDescriptionEN }}</ion-note>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 
-  <div *ngIf="!players" class="ion-text-center ion-justify-content-center ion-align-items-center"
-    style="height: 100%; display: flex;">
-    <ion-spinner name="crescent"></ion-spinner>
-  </div>
+  <ion-card *ngIf="players.length === 0 && strPlayerName !== ''">
+    <ion-card-content>
+      <p class="ion-text-center">Silahkan cari player</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -31,10 +31,22 @@ export class Tab3Page implements OnInit {
   }
 
   fetchDataPlayerByName(strPlayer: string) {
-    this.TheSportsDBService.getPlayerByName(strPlayer).subscribe((data: any) => {
-      this.players = data.player;
-      console.log(data);
-    })
+    this.TheSportsDBService.getPlayerByName(strPlayer)
+      .subscribe(
+        (data: any) => {
+          this.players = data.player.filter((player: any) => player.strSport.toLowerCase() === 'soccer');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
+
+  // fetchDataPlayerByName(strPlayer: string) {
+  //   this.TheSportsDBService.getPlayerByName(strPlayer).subscribe((data: any) => {
+  //     this.players = data.player
+  //     console.log(this.players);
+  //   })
+  // }
 
 }
