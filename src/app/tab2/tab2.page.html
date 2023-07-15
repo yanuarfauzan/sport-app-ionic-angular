@@ -25,6 +25,7 @@
               <img [src]="event.strThumb ? event.strThumb : 'https://via.placeholder.com/300x200'" alt="Logo"
                 width="600px" />
               <ion-card-header class="ion-text-center">
+                <ion-button (click)="saveMatch(event)">favorite</ion-button>
                 <ion-card-title class="ion-text-center"><strong>{{ event.strEvent }}</strong></ion-card-title>
                 <strong class="ion-margin-top">{{ event.strStatus }}</strong>
               </ion-card-header>

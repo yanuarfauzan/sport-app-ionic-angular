@@ -10,6 +10,8 @@ import { NavController } from '@ionic/angular';
 })
 export class Tab1Page implements OnInit {
 
+  item: any[] = [];
+
   teams: any[] = [];
 
   leagues: any[] = [];
@@ -35,4 +37,6 @@ export class Tab1Page implements OnInit {
     this.navCtrl.navigateForward('/detail/' + idTeam);
     console.log(idTeam);
   }
+
+
 }

@@ -42,11 +42,22 @@ export class Tab3Page implements OnInit {
       );
   }
 
-  // fetchDataPlayerByName(strPlayer: string) {
-  //   this.TheSportsDBService.getPlayerByName(strPlayer).subscribe((data: any) => {
-  //     this.players = data.player
-  //     console.log(this.players);
-  //   })
-  // }
+  savePlayer(player: any) {
+    const storedFavorites = localStorage.getItem('favPlayer');
+    let players: any[] = storedFavorites ? JSON.parse(storedFavorites) : [];
+
+    // Cek apakah player sudah ada di localStorage berdasarkan idPlayer
+    const index = players.findIndex((p) => p.idPlayer === player.idPlayer);
+
+    if (index > -1) {
+      // Jika player sudah ada, gantikan dengan player yang baru
+      players[index] = player;
+    } else {
+      // Jika player belum ada, tambahkan ke array players
+      players.push(player);
+    }
+
+    localStorage.setItem('favPlayer', JSON.stringify(players));
+  }
 
 }

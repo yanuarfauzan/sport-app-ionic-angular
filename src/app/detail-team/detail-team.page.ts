@@ -34,13 +34,14 @@ interface Team {
 export class DetailTeamPage implements OnInit {
   team: Team | null = null;
 
+
   private apiKey: string = environment.apiKey;
   private baseUrl: string = 'https://www.thesportsdb.com/api/v1/json/3/';
 
   constructor(
     private route: ActivatedRoute,
     private navCtrl: NavController,
-    private http: HttpClient
+    private http: HttpClient,
   ) { }
 
   ngOnInit() {
@@ -71,6 +72,23 @@ export class DetailTeamPage implements OnInit {
       })
     );
   }
+
+  saveTeam() {
+    let favorites: any[] = [];
+    const storedFavorites = localStorage.getItem('fav');
+
+    if (storedFavorites) {
+      favorites = JSON.parse(storedFavorites);
+      if (!Array.isArray(favorites)) {
+        favorites = [];
+      }
+    }
+
+    favorites.push(this.team);
+    localStorage.setItem('fav', JSON.stringify(favorites));
+  }
+
+
 
   goBack() {
     this.navCtrl.back();

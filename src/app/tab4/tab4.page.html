@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Favorite
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- segment -->
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="team">
+      Team
+    </ion-segment-button>
+    <ion-segment-button value="player">
+      Player
+    </ion-segment-button>
+    <ion-segment-button value="match">
+      Match
+    </ion-segment-button>
+  </ion-segment>
+  <div *ngIf="selectedSegment === 'team'">
+    <ion-list *ngIf="favorites.length > 0">
+      <ion-card *ngFor="let fav of favorites">
+        <ion-item>
+          <ion-avatar slot="start">
+            <img [src]="fav.strTeamBadge" alt="Logo Tim">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{ fav.strTeam }}</h2>
+          </ion-label>
+          <ion-button color="danger" fill="clear" (click)="removeFromFavorites(fav)">
+            Remove
+          </ion-button>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+
+    <ion-card *ngIf="favorites.length === 0">
+      <ion-card-content>
+        Tidak ada data favorit yang tersimpan.
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="selectedSegment === 'player'">
+    <ion-list *ngIf="players.length > 0">
+      <ion-card *ngFor="let favPlayer of players">
+        <ion-item>
+          <ion-avatar slot="start">
+            <img [src]="favPlayer.strThumb" alt="Logo Tim">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{ favPlayer.strPlayer }}</h2>
+          </ion-label>
+          <ion-button color="danger" fill="clear" (click)="removePlayerFromFavorites(favPlayer)">
+            Remove
+          </ion-button>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+
+    <ion-card *ngIf="players.length === 0">
+      <ion-card-content>
+        Tidak ada data player yang tersimpan.
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="selectedSegment === 'match'">
+    <ion-list *ngIf="matches.length > 0">
+      <ion-card *ngFor="let favMatch of matches">
+        <ion-item>
+          <ion-avatar slot="start">
+            <img [src]="favMatch.strBanner" alt="Logo Tim">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{ favMatch.strEvent }}</h2>
+          </ion-label>
+          <ion-button color="danger" fill="clear" (click)="removePlayerFromFavorites(favMatch)">
+            Remove
+          </ion-button>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+
+    <ion-card *ngIf="matches.length === 0">
+      <ion-card-content>
+        Tidak ada data player yang tersimpan.
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

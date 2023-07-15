@@ -43,4 +43,24 @@ export class Tab2Page implements OnInit {
     }
   }
 
+  saveMatch(event: any) {
+    const storedFavorites = localStorage.getItem('favMatch');
+    let matches: any[] = storedFavorites ? JSON.parse(storedFavorites) : [];
+  
+    // Cek apakah event sudah ada di localStorage berdasarkan idEvent
+    const index = matches.findIndex((match) => match.idEvent === event.idEvent);
+  
+    if (index > -1) {
+      // Jika event sudah ada, gantikan dengan event yang baru
+      matches[index] = event;
+    } else {
+      // Jika event belum ada, tambahkan ke array matches
+      matches.push(event);
+    }
+  
+    localStorage.setItem('favMatch', JSON.stringify(matches));
+  }
+  
+
+
 }

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Pertandingan
+      Pemain
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,7 +10,9 @@
   <ion-searchbar #searchBar (ionChange)="fetchDataPlayerByName(searchBar.value || '')"></ion-searchbar>
 
   <ion-card *ngFor="let player of players">
-    <ion-card-title class="ion-text-center ion-margin-top">{{ player.strPlayer }}</ion-card-title>
+    <ion-card-title class="ion-text-center ion-margin-top">{{ player.strPlayer }}
+      <ion-icon name="bookmark-outline" (click)="savePlayer(player)" class="ion-margin-start"></ion-icon>
+    </ion-card-title>
     <ion-card-content>
       <div class="ion-text-center">
         <img [src]="player.strThumb.length > 0 ? player.strThumb : 'https://via.placeholder.com/300x200'" alt=""
@@ -37,7 +39,7 @@
 
   <ion-card *ngIf="players.length === 0 && strPlayerName !== ''">
     <ion-card-content>
-      <p class="ion-text-center">Silahkan cari player</p>
+      <p class="ion-text-center">Silahkan cari pemain</p>
     </ion-card-content>
   </ion-card>
 </ion-content>
